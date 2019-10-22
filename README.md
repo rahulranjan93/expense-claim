@@ -1,11 +1,11 @@
-To setup this repo, follow the below steps:
-$ git clone git@github.com:rahulranjan93/expense-claim.git
-$ cd expense-claim
-$ pip3 install -r requirements.txt
-
-To start the server, follow the below steps:
-$ virtualenv env
-$ source env/bin/activate
-$ python3 app.py
-
-Happy Coding!!!
+To setup this repo, follow the below steps:<br />
+$ git clone git@github.com:rahulranjan93/expense-claim.git<br />
+$ cd expense-claim<br />
+$ pip3 install -r requirements.txt<br />
+<br />
+To start the server, follow the below steps:<br />
+$ virtualenv env<br />
+$ source env/bin/activate<br />
+$ python3 app.py<br />
+<br />
+Happy Coding!!!<br />
