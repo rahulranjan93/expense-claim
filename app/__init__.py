@@ -10,10 +10,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 heroku = Heroku(app)
 
-
-@app.route("/")
-def index():
-    return {"value": "Hello World"}
+from app import routes, models
 
 
 @app.route("/number/<number>")

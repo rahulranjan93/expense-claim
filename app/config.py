@@ -8,4 +8,4 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-#postgres://rxxhlhzglhwwpo:bc2a134e64a268bddd42040a0657e986cd02c276e60fcc06850c669d62d0f514@ec2-54-217-221-21.eu-west-1.compute.amazonaws.com:5432/d7b4vbivap2g0c
+#postgres://apjqozxibijqqi:aab97b6b6e0393f57d08dbb5ff8194a303dccd0f0b87c9e279d7b1862049588e@ec2-46-137-120-243.eu-west-1.compute.amazonaws.com:5432/dci9qlsvmg6vpn
