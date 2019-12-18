@@ -15,8 +15,8 @@ $ flask run<br />
 DB connection and update:
 1. For connecting to database You should have the db connection string to connect to the db. Please ask repo contributors for that.
 2. To connect to db run `export DATABASE_URL=<your db connection string>` in terminal
-3. To make changes in schema follow below steps :
-    a. Update schema in app/models.py
-    b. Run `flask db migrate`
-    c. Run `flask db upgrade`
+3. To make changes in schema follow below steps : <br/>
+    a. Update schema in app/models.py <br/>
+    b. Run `flask db migrate` <br/>
+    c. Run `flask db upgrade` <br/>
 4. This will change the database schema if you are connected to database
