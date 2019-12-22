@@ -20,3 +20,38 @@ DB connection and update:
     b. Run `flask db migrate` <br/>
     c. Run `flask db upgrade` <br/>
 4. This will change the database schema if you are connected to database
+
+
+Usage
+-------
+$ curl -i -X POST -H "Content-Type: application/json" -d '{"email":"rahul.ranjan@plangrid.com",
+	"name":"Rahul",
+	"role":"747bd65b-a83b-4657-b475-54bca59bac0a",
+	"team":"Plangrid",
+	"password":"rahul"
+}' http://127.0.0.1:5000/create
+    
+    employee added successfully
+
+
+$ curl -u rahul.ranjan@plangrid.com:ranjan -i -X GET http://127.0.0.1:5000/resource
+    
+    {
+      "data": "Hello, rahul.ranjan@plangrid.com!"
+    }
+
+
+$ curl -u rahul.ranjan@plangrid.com:ranjan -i -X GET http://127.0.0.1:5000/token
+    
+    {
+      "duration": 600,
+      "token": "eyJhbGciOiJIUzI1NiIsImV4cCI6MTM4NTY2OTY1NSwiaWF0IjoxMzg1NjY5MDU1fQ.eyJpZCI6MX0.XbOEFJkhjHJ5uRINh2JA1BPzXjSohKYDRT472wGOvjc"
+    }
+    
+
+$ curl -u eyJhbGciOiJIUzI1NiIsImV4cCI6MTM4NTY2OTY1NSwiaWF0IjoxMzg1NjY5MDU1fQ.eyJpZCI6MX0.XbOEFJkhjHJ5uRINh2JA1BPzXjSohKYDRT472wGOvjc:x -i -X GET http://127.0.0.1:5000/resource
+    
+    {
+      "data": "Hello, rahul.ranjan@plangrid.com!"
+    }
+

@@ -27,6 +27,8 @@ def create():
         id = uuid.uuid4(),
         created_at = datetime.utcnow(),
         updated_at =datetime.utcnow())
+
+        e.hash_password(request.json['password'])
         db.session.add(e)
         db.session.commit()
         return "employee added successfully"
