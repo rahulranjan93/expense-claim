@@ -24,7 +24,7 @@ class Employee(db.Model):
     id = db.Column(db.String(64), primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(64))
+    password = db.Column(db.String(128))
     team = db.Column(db.String(64), index=True)
     role = db.Column(db.String(64), db.ForeignKey('role.id'))
     claims = db.relationship('Claim', backref='claimant', lazy='dynamic')
