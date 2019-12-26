@@ -1,5 +1,13 @@
+"""
+
+This file is to be deleted. Please do not add any more code here. Use the specific file /routes directory
+
+
+"""
+
 from app import app, db
-from app.models import Employee, Role
+from app.models.employee import Employee
+from app.models.role import Role
 from flask import request,abort, jsonify, g, url_for
 from datetime import datetime
 from flask_httpauth import HTTPBasicAuth
@@ -7,72 +15,6 @@ import uuid
 import requests
 import xmltodict
 auth = HTTPBasicAuth()
-
-@app.route('/')
-@app.route('/index')
-def index():
-    employees = Employee.query.all()
-    names = []
-    for e in employees:
-        names.append(e.name)
-        print(names)
-    return "Hello"
-
-@app.route('/create', methods=["POST"])
-def create():
-    # now = datetime.now()
-    # dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    roles = getAllRoles()
-    if request.method == "POST":
-        e = Employee( email = request.json['email'],
-        name = request.json['name'],
-        team = request.json['team'],
-        id = uuid.uuid4(),
-        created_at = datetime.utcnow(),
-        updated_at =datetime.utcnow())
-
-        for role in roles:
-            if role["role"] == "Employee":
-                e.role = role["id"]
-
-        e.hash_password(request.json['password'])
-        db.session.add(e)
-        db.session.commit()
-        return "employee added successfully"
-    else:
-        return {"value": "trying to get user ?"}
-
-@app.route('/createRole', methods=["POST"])
-def createRole():
-
-    if request.method == "POST":
-        r = Role(
-            role=request.json['role'],
-            id=uuid.uuid4()
-        )
-        db.session.add(r)
-        db.session.commit()
-        return "role added successfully"
-    else:
-        return {"value": "trying to get user ?"}
-
-@app.route('/deleteRole', methods=["POST"])
-def deleteRole():
-
-    if request.method == "POST":
-        id = request.json['id']
-        r = Role.query.filter_by(id=id).delete()
-        db.session.commit()
-        return "role deleted successfully"
-    else:
-        return {"value": "trying to get user ?"}
-
-def getAllRoles():
-        db_roles = Role.query.all()
-        roles = []
-        for role in db_roles:
-            roles.append({'id':role.id, 'role':role.role})
-        return roles
 
 
 @auth.verify_password
@@ -122,26 +64,6 @@ def login_page():
 
     else:
         return {"value": "trying to login?"}
-
-@app.route('/getAllTeams', methods=["GET"])
-def get_all_teams():
-    getAllRoles()
-    teams = []
-    response = requests.get(
-        'http://m7.tm00.com/tmpartnerservice/Services/PartnerDropdownlistService.svc/GetDropdownvaluesByHostIdAndListId/47/Team',
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": "18:E6LfjeMCP"
-        },
-    )
-
-    responseContentJson =  xmltodict.parse(response.content)
-    if responseContentJson["PartnerDDLValue"] is not None :
-        listItems = responseContentJson["PartnerDDLValue"]["ListItems"]["a:ListItem"]
-        for item in listItems :
-            teams.append(item["a:ListItemValue"])
-
-    return jsonify(teams)
 
 
 

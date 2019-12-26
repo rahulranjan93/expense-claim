@@ -13,8 +13,8 @@ heroku = Heroku(app)
 
 auth = HTTPBasicAuth()
 
-from app import routes, models
-from app.models import Employee
+from app.routes.registry import *
+from app.models.registry import *
 
 
 
