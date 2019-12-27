@@ -43,23 +43,3 @@ def deleteEmployee():
         return "employee deleted successfully"
     else:
         return {"value": "trying to get user ?"}
-
-
-
-@auth.verify_password
-def verify_password(username_or_token, password):
-    employee = Employee.verify_auth_token(username_or_token)
-    if not employee:
-        # try to authenticate with email/password
-        employee = Employee.query.filter_by(email=username_or_token).first()
-        if not employee or not employee.verify_password(password):
-            return False
-    g.employee = employee
-    return True
-
-
-@app.route('/token')
-@auth.login_required
-def get_auth_token():
-    token = g.employee.generate_auth_token(600)
-    return jsonify({'token': token.decode('ascii'), 'duration': 600})
