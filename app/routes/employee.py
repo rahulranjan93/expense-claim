@@ -17,7 +17,7 @@ def create():
         e = Employee( email = request.json['email'],
         name = request.json['name'],
         team = request.json['team'],
-        id = uuid.uuid4(),
+        id = str(uuid.uuid4()),
         created_at = datetime.utcnow(),
         updated_at =datetime.utcnow())
 
@@ -28,7 +28,19 @@ def create():
         e.hash_password(request.json['password'])
         db.session.add(e)
         db.session.commit()
-        return "employee added successfully"
+
+        return jsonify(employee=e.serialize)
+    else:
+        return {"value": "trying to get user ?"}
+
+@app.route('/deleteEmployee', methods=["POST"])
+def deleteEmployee():
+
+    if request.method == "POST":
+        id = request.json['id']
+        r = Employee.query.filter_by(id=id).delete()
+        db.session.commit()
+        return "employee deleted successfully"
     else:
         return {"value": "trying to get user ?"}
 

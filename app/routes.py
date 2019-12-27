@@ -1,6 +1,6 @@
 """
 
-This file is to be deleted. Please do not add any more code here. Use the specific file /routes directory
+This file is to be deleted once all the routes present here are ported. Please do not add any more code here. Use the specific file /routes directory
 
 
 """
