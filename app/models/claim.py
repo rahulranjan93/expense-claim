@@ -1,5 +1,6 @@
 from app import db
 from datetime import datetime
+import json
 
 class Claim(db.Model):
     id = db.Column(db.String(64), primary_key=True)
@@ -14,3 +15,18 @@ class Claim(db.Model):
 
     def __repr__(self):
         return '<Claim {}>'.format(self.id)
+
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'amount': self.amount,
+            'emp': self.emp_id,
+            'team': self.team,
+            'status': self.status,
+            'type': self.type,
+            'data': self.claim_data
+        }

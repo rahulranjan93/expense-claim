@@ -23,7 +23,7 @@ def verify_password(username_or_token, password):
 def get_auth_token():
     token = g.employee.generate_auth_token(600)
     print(g.employee)
-    return jsonify({'token': token.decode('ascii'), 'duration': 600})
+    return jsonify({'token': token.decode('ascii'), 'duration': 600, 'employee': g.employee.serialize})
 
 
 @app.route('/resource')

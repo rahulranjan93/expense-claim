@@ -6,3 +6,5 @@ from app.routes.role import create_role
 from app.routes.role import delete_role
 from app.routes.index import index
 from app.routes.team import get_all_teams
+from app.routes.claim import create_claim
+from app.routes.claim import approve_claim

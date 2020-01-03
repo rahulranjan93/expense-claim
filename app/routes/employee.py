@@ -14,6 +14,8 @@ def create():
     # dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     roles = getAllRoles()
     if request.method == "POST":
+        print(request.json['role'])
+        user_role = "Employee" if (request.json['role'] is None) else (request.json['role'])
         e = Employee( email = request.json['email'],
         name = request.json['name'],
         team = request.json['team'],
@@ -22,7 +24,7 @@ def create():
         updated_at =datetime.utcnow())
 
         for role in roles:
-            if role["role"] == "Employee":
+            if role["role"] == user_role:
                 e.role = role["id"]
 
         e.hash_password(request.json['password'])
@@ -41,5 +43,17 @@ def deleteEmployee():
         r = Employee.query.filter_by(id=id).delete()
         db.session.commit()
         return "employee deleted successfully"
+    else:
+        return {"value": "trying to get user ?"}
+
+@app.route('/change_team', methods=["PATCH"])
+def change_team():
+
+    if request.method == "PATCH":
+        id = request.json['id']
+        employee = Employee.query.filter_by(id=id).first()
+        employee.teams = request.json['teams']
+        db.session.commit()
+        return "Team changed successfully"
     else:
         return {"value": "trying to get user ?"}
