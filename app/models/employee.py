@@ -47,6 +47,6 @@ class Employee(db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'team': self.team,
+            'teams': self.teams,
             'role': self.role,
         }

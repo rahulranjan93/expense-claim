@@ -3,11 +3,12 @@ from app.models.role import Role
 from flask import request
 from flask_httpauth import HTTPBasicAuth
 import uuid
+
 auth = HTTPBasicAuth()
+
 
 @app.route('/createRole', methods=["POST"])
 def create_role():
-
     print("hello")
     if request.method == "POST":
         r = Role(
@@ -20,9 +21,9 @@ def create_role():
     else:
         return {"value": "trying to get user ?"}
 
+
 @app.route('/deleteRole', methods=["POST"])
 def delete_role():
-
     if request.method == "POST":
         id = request.json['id']
         r = Role.query.filter_by(id=id).delete()
@@ -31,9 +32,10 @@ def delete_role():
     else:
         return {"value": "trying to get user ?"}
 
+
 def getAllRoles():
-        db_roles = Role.query.all()
-        roles = []
-        for role in db_roles:
-            roles.append({'id':role.id, 'role':role.role})
-        return roles
+    db_roles = Role.query.all()
+    roles = []
+    for role in db_roles:
+        roles.append({'id': role.id, 'role': role.role})
+    return roles

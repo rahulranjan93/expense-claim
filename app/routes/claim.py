@@ -7,6 +7,7 @@ from datetime import datetime
 from flask_httpauth import HTTPBasicAuth
 import uuid
 import json
+
 auth = HTTPBasicAuth()
 
 
@@ -20,7 +21,7 @@ def create_claim():
             id=str(uuid.uuid4()),
             status="submitted",
             type=request.json['type'],
-            claim_data= request.json['data'],
+            claim_data=request.json['data'],
             created_at=datetime.utcnow(),
             updated_at=datetime.utcnow()
         )
@@ -42,7 +43,7 @@ def get_all_claims(user_id):
 
         if claimant_role["role"] == "Manager":
             review_claims = Claim.query.filter(
-            (Claim.status == "submitted") | (Claim.team.in_(claimant.teams))).all()
+                (Claim.status == "submitted") | (Claim.team.in_(claimant.teams))).all()
 
         elif claimant_role["role"] == "HR":
             approved_claims = Claim.query.filter_by(type="team_expense", status="approved")
@@ -58,16 +59,15 @@ def get_all_claims(user_id):
         else:
             review_claims = []
 
-        #data = json.dumps
+        # data = json.dumps
         return jsonify(claims=
-            {
-                "self_claims": [i.serialize for i in self_claims],
-                "review_claims": [i.serialize for i in review_claims]
-            }
+        {
+            "self_claims": [i.serialize for i in self_claims],
+            "review_claims": [i.serialize for i in review_claims]
+        }
         )
     else:
         return {"value": "trying to get existing claim ?"}
-
 
 
 def update_claim(status):
@@ -80,26 +80,27 @@ def update_claim(status):
     else:
         return {"value": "trying to get existing claim ?"}
 
+
 @app.route('/approve_claim', methods=["PATCH"])
 def approve_claim():
     return update_claim("approved")
+
 
 @app.route('/reject_claim', methods=["PATCH"])
 def reject_claim():
     return update_claim("rejected")
 
+
 @app.route('/delete_claim', methods=["PATCH"])
 def delete_claim():
     return update_claim("deleted")
+
 
 @app.route('/validate_claim', methods=["PATCH"])
 def validate_claim():
     return update_claim("validated")
 
+
 @app.route('/process_claim', methods=["PATCH"])
 def processed_claim():
     return update_claim("processed")
-
-
-
-

@@ -3,7 +3,9 @@ from flask import jsonify
 from flask_httpauth import HTTPBasicAuth
 import requests
 import xmltodict
+
 auth = HTTPBasicAuth()
+
 
 @app.route('/getAllTeams', methods=["GET"])
 def get_all_teams():
@@ -16,10 +18,10 @@ def get_all_teams():
         },
     )
 
-    responseContentJson =  xmltodict.parse(response.content)
-    if responseContentJson["PartnerDDLValue"] is not None :
+    responseContentJson = xmltodict.parse(response.content)
+    if responseContentJson["PartnerDDLValue"] is not None:
         listItems = responseContentJson["PartnerDDLValue"]["ListItems"]["a:ListItem"]
-        for item in listItems :
+        for item in listItems:
             teams.append(item["a:ListItemValue"])
 
     return jsonify(teams)

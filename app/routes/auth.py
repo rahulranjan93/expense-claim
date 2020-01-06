@@ -2,6 +2,7 @@ from app import app
 from app.models.employee import Employee
 from flask import request, jsonify, g
 from flask_httpauth import HTTPBasicAuth
+
 auth = HTTPBasicAuth()
 
 

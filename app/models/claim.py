@@ -2,6 +2,7 @@ from app import db
 from datetime import datetime
 import json
 
+
 class Claim(db.Model):
     id = db.Column(db.String(64), primary_key=True)
     amount = db.Column(db.Integer)
