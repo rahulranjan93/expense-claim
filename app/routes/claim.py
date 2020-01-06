@@ -69,15 +69,37 @@ def get_all_claims(user_id):
         return {"value": "trying to get existing claim ?"}
 
 
-@app.route('/approve_claim', methods=["PATCH"])
-def approve_claim():
+
+def update_claim(status):
     if request.method == "PATCH":
         id = request.json["id"]
         claim = Claim.query.filter_by(id=id).first()
-        claim.status = "approved"
+        claim.status = status
         db.session.commit()
         return jsonify(claim=claim.serialize)
     else:
         return {"value": "trying to get existing claim ?"}
+
+@app.route('/approve_claim', methods=["PATCH"])
+def approve_claim():
+    return update_claim("approved")
+
+@app.route('/reject_claim', methods=["PATCH"])
+def reject_claim():
+    return update_claim("rejected")
+
+@app.route('/delete_claim', methods=["PATCH"])
+def delete_claim():
+    return update_claim("deleted")
+
+@app.route('/validate_claim', methods=["PATCH"])
+def validate_claim():
+    return update_claim("validated")
+
+@app.route('/process_claim', methods=["PATCH"])
+def processed_claim():
+    return update_claim("processed")
+
+
 
 

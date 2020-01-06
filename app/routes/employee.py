@@ -8,8 +8,8 @@ import uuid
 auth = HTTPBasicAuth()
 
 
-@app.route('/create', methods=["POST"])
-def create():
+@app.route('/create_employee', methods=["POST"])
+def create_employee():
     # now = datetime.now()
     # dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     roles = getAllRoles()
@@ -35,8 +35,8 @@ def create():
     else:
         return {"value": "trying to get user ?"}
 
-@app.route('/deleteEmployee', methods=["POST"])
-def deleteEmployee():
+@app.route('/delete_employee', methods=["POST"])
+def delete_employee():
 
     if request.method == "POST":
         id = request.json['id']

@@ -1,5 +1,5 @@
-from app.routes.employee import create
-from app.routes.employee import deleteEmployee
+from app.routes.employee import create_employee
+from app.routes.employee import delete_employee
 from app.routes.auth import verify_password
 from app.routes.auth import get_auth_token
 from app.routes.role import create_role
