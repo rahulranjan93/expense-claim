@@ -7,7 +7,7 @@ import uuid
 auth = HTTPBasicAuth()
 
 
-@app.route('/createRole', methods=["POST"])
+@app.route('/create_role', methods=["POST"])
 def create_role():
     print("hello")
     if request.method == "POST":
@@ -22,7 +22,7 @@ def create_role():
         return {"value": "trying to get user ?"}
 
 
-@app.route('/deleteRole', methods=["POST"])
+@app.route('/delete_role', methods=["POST"])
 def delete_role():
     if request.method == "POST":
         id = request.json['id']

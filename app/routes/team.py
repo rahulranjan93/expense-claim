@@ -7,7 +7,7 @@ import xmltodict
 auth = HTTPBasicAuth()
 
 
-@app.route('/getAllTeams', methods=["GET"])
+@app.route('/get_all_teams', methods=["GET"])
 def get_all_teams():
     teams = []
     response = requests.get(
