@@ -1,36 +1,37 @@
-from app import app, db
+from app import db, registry, auth
 from app.models.role import Role
-from flask import request
-from flask_httpauth import HTTPBasicAuth
+from flask import request, jsonify
+from app.schemas.role import RoleResponseSchema, RoleRequestSchema
+
 import uuid
 
-auth = HTTPBasicAuth()
 
-
-@app.route('/create_role', methods=["POST"])
+@registry.handles(
+    rule="/create_role",
+    method="POST",
+    response_body_schema=RoleResponseSchema()
+)
 def create_role():
-    print("hello")
-    if request.method == "POST":
         r = Role(
             role=request.json['role'],
-            id=uuid.uuid4()
+            id=str(uuid.uuid4())
         )
         db.session.add(r)
         db.session.commit()
-        return "role added successfully"
-    else:
-        return {"value": "trying to get user ?"}
+        return r.serialize , 200
 
 
-@app.route('/delete_role', methods=["POST"])
+@registry.handles(
+    rule="/delete_role",
+    method="POST",
+    response_body_schema=RoleResponseSchema(),
+    request_body_schema=RoleRequestSchema()
+)
 def delete_role():
-    if request.method == "POST":
         id = request.json['id']
         r = Role.query.filter_by(id=id).delete()
         db.session.commit()
         return "role deleted successfully"
-    else:
-        return {"value": "trying to get user ?"}
 
 
 def getAllRoles():

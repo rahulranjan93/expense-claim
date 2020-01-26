@@ -7,3 +7,10 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role {}>'.format(self.role)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'role': self.role,
+        }
